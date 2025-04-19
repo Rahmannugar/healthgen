@@ -125,7 +125,7 @@ export default function BookingModal({
                         <Label
                           htmlFor={`slot-${index}`}
                           id={`slot-desc-${index}`}
-                          className="flex-grow cursor-pointer p-2 hover:bg-gray-50 rounded"
+                          className="flex-grow cursor-pointer p-2 hover:bg-green-200 hover:text-black rounded"
                         >
                           {formattedDate}
                         </Label>
