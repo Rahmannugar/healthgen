@@ -5,8 +5,12 @@ interface AppointmentState {
   appointments: Appointment[];
 }
 
+// Load initial state from localStorage
 const initialState: AppointmentState = {
-  appointments: [],
+  appointments:
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("healthgen_appointments") || "[]")
+      : [],
 };
 
 export const appointmentSlice = createSlice({
@@ -15,6 +19,11 @@ export const appointmentSlice = createSlice({
   reducers: {
     addAppointment: (state, action: PayloadAction<Appointment>) => {
       state.appointments.push(action.payload);
+      // Save appointments to localStorage
+      localStorage.setItem(
+        "healthgen_appointments",
+        JSON.stringify(state.appointments)
+      );
     },
     cancelAppointment: (state, action: PayloadAction<string>) => {
       const index = state.appointments.findIndex(
@@ -22,6 +31,11 @@ export const appointmentSlice = createSlice({
       );
       if (index !== -1) {
         state.appointments[index].status = "cancelled";
+        // Save changes to localStorage
+        localStorage.setItem(
+          "healthgen_appointments",
+          JSON.stringify(state.appointments)
+        );
       }
     },
   },

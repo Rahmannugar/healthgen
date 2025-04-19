@@ -16,7 +16,6 @@ export default function DoctorDirectory() {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
 
   useEffect(() => {
-    // Simulate loading data
     const timer = setTimeout(() => {
       setDoctors(mockDoctors);
       setLoading(false);
@@ -35,7 +34,7 @@ export default function DoctorDirectory() {
     setSelectedDoctor(null);
   };
 
-  // Filter doctors based on selected filters
+  // Filtering doctors based on selected filters
   const filteredDoctors = doctors.filter((doctor) => {
     const matchesSpecialty =
       specialty === "all" || doctor.specialty === specialty;

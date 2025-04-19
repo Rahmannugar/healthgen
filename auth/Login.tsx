@@ -45,10 +45,10 @@ export default function Login() {
         <CardHeader className="space-y-1">
           <div className="flex justify-center mb-2">
             <Image
-              src="/logo.svg"
+              src="/healthgen.png"
               alt="HealthGen Logo"
-              width={150}
-              height={40}
+              width={100}
+              height={20}
               priority
             />
           </div>
@@ -85,12 +85,18 @@ export default function Login() {
               />
             </div>
 
-            <Alert className="bg-blue-50 border-blue-200 dark:bg-blue-950 dark:border-blue-900 py-2">
-              <Info className="h-4 w-4 text-blue-500 dark:text-blue-400" />
-              <AlertDescription className="text-xs text-blue-700 dark:text-blue-300">
-                For demo purposes, use: <br />
-                Username: <strong>admin</strong>
-                Password: <strong>admin</strong>
+            <Alert className="bg-blue-50/50 border border-blue-100 dark:bg-blue-950/30 dark:border-blue-900 py-3 px-4 rounded-lg flex items-start gap-3">
+              <Info className="h-4 w-4 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
+              <AlertDescription className="text-sm text-blue-700 dark:text-blue-300 leading-relaxed">
+                For demo purposes, use:
+                <div className="mt-1 font-mono bg-blue-100/50 dark:bg-blue-900/30 px-3 py-1.5 rounded-md text-xs">
+                  <div>
+                    Username: <span className="font-semibold">admin</span>
+                  </div>
+                  <div>
+                    Password: <span className="font-semibold">admin</span>
+                  </div>
+                </div>
               </AlertDescription>
             </Alert>
 

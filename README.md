@@ -7,29 +7,34 @@ HealthGen is a responsive and accessible doctor appointment booking platform des
 ## 🌟 Features
 
 ### User Authentication
+
 - Simple login system (username: `admin`, password: `admin`)
 - User profile management
 - Secure session handling with localStorage
 
 ### Doctor Directory
+
 - Comprehensive doctor listings with detailed profiles
 - Filter doctors by specialty and availability
 - Responsive doctor cards with key information (name, specialty, rating, location)
 - Visual indicators for doctor availability
 
 ### Appointment Booking
+
 - Interactive booking modal
 - Available time slot selection
 - Appointment confirmation system
 - Real-time availability updates
 
 ### Appointment Management
+
 - View all booked appointments
 - Appointment status tracking
 - Organized presentation of appointment details
 - Date and time information
 
 ### UI/UX
+
 - Initial loading animation
 - Responsive design for mobile, tablet, and desktop
 - Profile dropdown with user options
@@ -46,6 +51,7 @@ HealthGen is a responsive and accessible doctor appointment booking platform des
 - **Icons**: Lucide React
 - **Authentication**: Custom localStorage implementation
 - **Accessibility**: ARIA attributes, keyboard navigation, screen reader support
+- **AI Assistant**: Github Copilot
 
 ## 📋 Prerequisites
 
@@ -63,14 +69,18 @@ HealthGen is a responsive and accessible doctor appointment booking platform des
 2. Install dependencies:
    \`\`\`bash
    npm install
+
    # or
+
    yarn install
    \`\`\`
 
 3. Run the development server:
    \`\`\`bash
    npm run dev
+
    # or
+
    yarn dev
    \`\`\`
 
@@ -79,26 +89,29 @@ HealthGen is a responsive and accessible doctor appointment booking platform des
 ## 🔍 Usage Guide
 
 ### Authentication
+
 1. Access the application at [http://localhost:3000](http://localhost:3000)
 2. Use the following credentials to log in:
    - Username: `admin`
    - Password: `admin`
 
 ### Finding Doctors
+
 1. Navigate to the "Find Doctors" tab
 2. Use the filters to narrow down by specialty or availability
 3. Browse through the doctor cards to find a suitable healthcare provider
 
 ### Booking an Appointment
+
 1. Click the "Book Appointment" button on a doctor's card
 2. Select an available time slot from the booking modal
 3. Click "Confirm Appointment" to schedule your visit
 
 ### Managing Appointments
+
 1. Navigate to the "My Appointments" tab
 2. View all your booked appointments
 3. Check appointment details including doctor, specialty, date, time, and location
-
 
 ## ♿ Accessibility Considerations
 

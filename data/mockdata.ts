@@ -37,7 +37,7 @@ export const mockDoctors: Doctor[] = [
   {
     id: 0,
     name: "Sarah Johnson",
-    photo: "/placeholder.svg?height=80&width=80",
+    photo: "/doctors/johnson.jpg",
     specialty: "Cardiology",
     rating: 4.8,
     location: "Medical Center, New York",
@@ -46,7 +46,7 @@ export const mockDoctors: Doctor[] = [
   {
     id: 1,
     name: "Michael Chen",
-    photo: "/placeholder.svg?height=80&width=80",
+    photo: "/doctors/chen.jpg",
     specialty: "Dermatology",
     rating: 4.7,
     location: "Health Clinic, Boston",
@@ -55,7 +55,7 @@ export const mockDoctors: Doctor[] = [
   {
     id: 2,
     name: "Emily Rodriguez",
-    photo: "/placeholder.svg?height=80&width=80",
+    photo: "/doctors/rodriguez.jpg",
     specialty: "Pediatrics",
     rating: 4.9,
     location: "Children's Hospital, Chicago",
@@ -64,7 +64,7 @@ export const mockDoctors: Doctor[] = [
   {
     id: 3,
     name: "David Kim",
-    photo: "/placeholder.svg?height=80&width=80",
+    photo: "/doctors/kim.jpg",
     specialty: "Neurology",
     rating: 4.6,
     location: "Neuroscience Center, San Francisco",
@@ -73,7 +73,7 @@ export const mockDoctors: Doctor[] = [
   {
     id: 4,
     name: "Jessica Patel",
-    photo: "/placeholder.svg?height=80&width=80",
+    photo: "/doctors/patel.jpg",
     specialty: "Orthopedics",
     rating: 4.5,
     location: "Sports Medicine Clinic, Los Angeles",
@@ -82,7 +82,7 @@ export const mockDoctors: Doctor[] = [
   {
     id: 5,
     name: "Robert Wilson",
-    photo: "/placeholder.svg?height=80&width=80",
+    photo: "/doctors/wilson.jpg",
     specialty: "Psychiatry",
     rating: 4.7,
     location: "Mental Health Center, Seattle",
@@ -91,7 +91,7 @@ export const mockDoctors: Doctor[] = [
   {
     id: 6,
     name: "Maria Garcia",
-    photo: "/placeholder.svg?height=80&width=80",
+    photo: "/doctors/garcia.jpg",
     specialty: "Gynecology",
     rating: 4.8,
     location: "Women's Health Clinic, Miami",
@@ -100,7 +100,7 @@ export const mockDoctors: Doctor[] = [
   {
     id: 7,
     name: "James Taylor",
-    photo: "/placeholder.svg?height=80&width=80",
+    photo: "/doctors/taylor.jpg",
     specialty: "Ophthalmology",
     rating: 4.6,
     location: "Vision Care Center, Denver",
@@ -109,7 +109,7 @@ export const mockDoctors: Doctor[] = [
   {
     id: 8,
     name: "Sophia Lee",
-    photo: "/placeholder.svg?height=80&width=80",
+    photo: "/doctors/lee.jpg",
     specialty: "Cardiology",
     rating: 4.9,
     location: "Heart Institute, Houston",

@@ -3,23 +3,37 @@
 import { useEffect, useState } from "react";
 
 export default function LoadingAnimation() {
+  const [isMounted, setIsMounted] = useState(false);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (progress < 100) {
-        setProgress((prev) => Math.min(prev + 10, 100));
-      }
+    setIsMounted(true);
+    return () => setIsMounted(false);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          return 100;
+        }
+        return prev + 10;
+      });
     }, 200);
 
-    return () => clearTimeout(timer);
-  }, [progress]);
+    return () => clearInterval(interval);
+  }, [isMounted]);
+
+  if (!isMounted) return null;
 
   return (
     <div className="fixed inset-0 flex flex-col items-center justify-center bg-background z-50">
-      <div className="w-24 h-24 mb-4">
+      <div className="w-24 h-24 mb-4 relative">
         <svg
-          className="animate-spin text-primary"
+          className="w-full h-full animate-[spin_1s_linear_infinite] text-primary"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -29,7 +43,7 @@ export default function LoadingAnimation() {
             cx="12"
             cy="12"
             r="10"
-            stroke="currentColor"
+            stroke="red"
             strokeWidth="4"
           ></circle>
           <path

@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addAppointment } from "../redux/slice/appointmentSlice";
+import { toast } from "sonner";
+import type { RootState } from "@/redux/store";
 import {
   Dialog,
   DialogContent,
@@ -30,6 +32,27 @@ export default function BookingModal({
   const [selectedSlot, setSelectedSlot] = useState<string>("");
   const dispatch = useDispatch();
 
+  // Get all existing appointments
+  const existingAppointments = useSelector(
+    (state: RootState) => state.appointments.appointments
+  );
+
+  // Filter out already booked slots for this doctor
+  const availableSlots = doctor.availableSlots.filter((slot) => {
+    const slotDate = new Date(slot);
+    return (
+      // Check if slot is in the future
+      slotDate > new Date() &&
+      // Check if slot is not already booked
+      !existingAppointments.some(
+        (appointment) =>
+          appointment.doctorId === doctor.id &&
+          appointment.dateTime === slot &&
+          appointment.status === "confirmed"
+      )
+    );
+  });
+
   const handleConfirm = () => {
     if (!selectedSlot) return;
 
@@ -44,73 +67,90 @@ export default function BookingModal({
     };
 
     dispatch(addAppointment(newAppointment));
+
+    const appointmentDate = new Date(selectedSlot);
+    toast.success("Appointment booked successfully!", {
+      description: `Your appointment with Dr. ${
+        doctor.name
+      } is confirmed for ${appointmentDate.toLocaleString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+      })}`,
+    });
     onClose();
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent
-        className="sm:max-w-md"
-        aria-labelledby="booking-modal-title"
-      >
-        <DialogHeader>
-          <DialogTitle id="booking-modal-title">
-            Book Appointment with Dr. {doctor.name}
-          </DialogTitle>
-        </DialogHeader>
+    <>
+      <Dialog open={isOpen} onOpenChange={onClose}>
+        <DialogContent
+          className="sm:max-w-md"
+          aria-labelledby="booking-modal-title"
+        >
+          <DialogHeader>
+            <DialogTitle id="booking-modal-title">
+              Book Appointment with Dr. {doctor.name}
+            </DialogTitle>
+          </DialogHeader>
 
-        <div className="py-4">
-          <p className="text-sm text-gray-500 mb-4">
-            Select an available time slot for your appointment with Dr.{" "}
-            {doctor.name}, {doctor.specialty}
-          </p>
+          <div className="py-4">
+            <p className="text-sm text-gray-500 mb-4">
+              Select an available time slot for your appointment with Dr.{" "}
+              {doctor.name}, {doctor.specialty}
+            </p>
 
-          {doctor.availableSlots.length > 0 ? (
-            <RadioGroup value={selectedSlot} onValueChange={setSelectedSlot}>
-              <div className="space-y-2">
-                {doctor.availableSlots.map((slot, index) => {
-                  const date = new Date(slot);
-                  const formattedDate = date.toLocaleString("en-US", {
-                    weekday: "long",
-                    month: "long",
-                    day: "numeric",
-                    hour: "numeric",
-                    minute: "2-digit",
-                  });
+            {availableSlots.length > 0 ? (
+              <RadioGroup value={selectedSlot} onValueChange={setSelectedSlot}>
+                <div className="space-y-2">
+                  {availableSlots.map((slot, index) => {
+                    const date = new Date(slot);
+                    const formattedDate = date.toLocaleString("en-US", {
+                      weekday: "long",
+                      month: "long",
+                      day: "numeric",
+                      hour: "numeric",
+                      minute: "2-digit",
+                    });
 
-                  return (
-                    <div key={index} className="flex items-center space-x-2">
-                      <RadioGroupItem
-                        value={slot}
-                        id={`slot-${index}`}
-                        aria-describedby={`slot-desc-${index}`}
-                      />
-                      <Label
-                        htmlFor={`slot-${index}`}
-                        id={`slot-desc-${index}`}
-                        className="flex-grow cursor-pointer p-2 hover:bg-gray-50 rounded"
-                      >
-                        {formattedDate}
-                      </Label>
-                    </div>
-                  );
-                })}
-              </div>
-            </RadioGroup>
-          ) : (
-            <p className="text-red-500">No available slots for this doctor.</p>
-          )}
-        </div>
+                    return (
+                      <div key={index} className="flex items-center space-x-2">
+                        <RadioGroupItem
+                          value={slot}
+                          id={`slot-${index}`}
+                          aria-describedby={`slot-desc-${index}`}
+                        />
+                        <Label
+                          htmlFor={`slot-${index}`}
+                          id={`slot-desc-${index}`}
+                          className="flex-grow cursor-pointer p-2 hover:bg-gray-50 rounded"
+                        >
+                          {formattedDate}
+                        </Label>
+                      </div>
+                    );
+                  })}
+                </div>
+              </RadioGroup>
+            ) : (
+              <p className="text-red-500">
+                No available slots for this doctor.
+              </p>
+            )}
+          </div>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={onClose}>
-            Cancel
-          </Button>
-          <Button onClick={handleConfirm} disabled={!selectedSlot}>
-            Confirm Appointment
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          <DialogFooter>
+            <Button variant="outline" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button onClick={handleConfirm} disabled={!selectedSlot}>
+              Confirm Appointment
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }

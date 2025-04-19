@@ -42,7 +42,10 @@ export default function ProfileBar() {
         <DropdownMenuContent className="w-56" align="end" forceMount>
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">Administrator</p>
+              <p className="text-sm font-medium leading-none">
+                {user.username.charAt(0).toUpperCase() +
+                  user.username.slice(1).toLowerCase()}
+              </p>
               <p className="text-xs leading-none text-gray-500 dark:text-gray-400">
                 {user.username}@healthgen.com
               </p>

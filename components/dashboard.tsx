@@ -3,24 +3,29 @@
 import type React from "react";
 
 import { useAuth } from "../auth/auth-context";
-import LoginForm from "../auth/Login";
+import Login from "../auth/Login";
 import ProfileBar from "./profile-bar";
 import Image from "next/image";
+import LoadingAnimation from "./loading-animation";
 
 export default function Dashboard({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isLoading } = useAuth();
+
+  if (isLoading) {
+    return <LoadingAnimation />;
+  }
 
   if (!isAuthenticated) {
-    return <LoginForm />;
+    return <Login />;
   }
 
   return (
     <main className="min-h-screen bg-background">
       <header className="bg-card shadow-sm">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center">
+          <div className="space-y-[-20px]">
             <Image
-              src="/logo.svg"
+              src="/healthgen.png"
               alt="HealthGen Logo"
               width={150}
               height={40}

@@ -1,14 +1,28 @@
 "use client";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { cancelAppointment } from "@/redux/slice/appointmentSlice";
 import type { RootState } from "@/redux/store";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Calendar, Clock, MapPin } from "lucide-react";
+import { toast } from "sonner";
 
 export default function AppointmentsSummary() {
+  const dispatch = useDispatch();
   const appointments = useSelector(
     (state: RootState) => state.appointments.appointments
   );
+
+  const handleCancelAppointment = (
+    appointmentId: string,
+    doctorName: string
+  ) => {
+    dispatch(cancelAppointment(appointmentId));
+    toast.success("Appointment cancelled", {
+      description: `Your appointment with Dr. ${doctorName} has been cancelled.`,
+    });
+  };
 
   if (appointments.length === 0) {
     return (
@@ -28,6 +42,7 @@ export default function AppointmentsSummary() {
       <div className="space-y-4">
         {appointments.map((appointment) => {
           const appointmentDate = new Date(appointment.dateTime);
+          const isPastAppointment = appointmentDate < new Date();
 
           return (
             <Card key={appointment.id}>
@@ -71,10 +86,32 @@ export default function AppointmentsSummary() {
                     </div>
                   </div>
 
-                  <div className="mt-4 md:mt-0">
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                  <div className="mt-4 md:mt-0 flex flex-col items-end gap-2">
+                    <span
+                      className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+                        appointment.status === "confirmed"
+                          ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+                          : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
+                      }`}
+                    >
                       {appointment.status}
                     </span>
+
+                    {appointment.status === "confirmed" &&
+                      !isPastAppointment && (
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={() =>
+                            handleCancelAppointment(
+                              appointment.id.toString(),
+                              appointment.doctorName
+                            )
+                          }
+                        >
+                          Cancel Appointment
+                        </Button>
+                      )}
                   </div>
                 </div>
               </CardContent>

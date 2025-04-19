@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import type { Doctor } from "@/types/doctor";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/redux/store";
 
 interface DoctorCardProps {
   doctor: Doctor;
@@ -16,7 +18,21 @@ export default function DoctorCard({
   doctor,
   onBookAppointment,
 }: DoctorCardProps) {
-  const { name, photo, specialty, rating, location, availableSlots } = doctor;
+  const existingAppointments = useSelector(
+    (state: RootState) => state.appointments.appointments
+  );
+
+  // Filter available slots
+  const availableSlots = doctor.availableSlots.filter((slot) => {
+    return !existingAppointments.some(
+      (appointment) =>
+        appointment.doctorId === doctor.id &&
+        appointment.dateTime === slot &&
+        appointment.status === "confirmed"
+    );
+  });
+
+  const { name, photo, specialty, rating, location } = doctor;
 
   return (
     <Card className="h-full flex flex-col">
@@ -24,7 +40,7 @@ export default function DoctorCard({
         <div className="flex items-start gap-4">
           <div className="relative h-20 w-20 rounded-full overflow-hidden flex-shrink-0">
             <Image
-              src={photo || "/placeholder.svg?height=80&width=80"}
+              src={photo}
               alt={`Dr. ${name}`}
               width={80}
               height={80}
