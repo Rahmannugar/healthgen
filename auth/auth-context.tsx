@@ -2,7 +2,6 @@
 
 import type React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
-import { useTheme } from "@/theme/theme-provider";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -30,7 +29,6 @@ export default function AuthContextProvider({
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState<{ username: string } | null>(null);
-  const { setTheme } = useTheme();
 
   useEffect(() => {
     // Check if user is already logged in
@@ -57,10 +55,6 @@ export default function AuthContextProvider({
     localStorage.removeItem("healthgen_user");
     setUser(null);
     setIsAuthenticated(false);
-
-    //reset theme
-    localStorage.removeItem("healthgen-theme");
-    setTheme("system");
   };
 
   return (

@@ -43,7 +43,7 @@ export default function LoadingAnimation() {
             cx="12"
             cy="12"
             r="10"
-            stroke="red"
+            stroke="currentColor"
             strokeWidth="4"
           ></circle>
           <path

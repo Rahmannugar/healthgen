@@ -22,7 +22,7 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
   return (
     <main className="min-h-screen bg-background">
       <header className="bg-card shadow-sm">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="space-y-[-20px]">
             <Image
               src="/healthgen.png"
