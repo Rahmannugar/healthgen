@@ -29,7 +29,7 @@ export default function AppointmentsSummary() {
       <div className="text-center py-12">
         <h2 className="text-xl font-semibold mb-2">No Appointments</h2>
         <p className="text-muted-foreground">
-          You haven't booked any appointments yet.
+          You haven&apos;t booked any appointments yet.
         </p>
       </div>
     );
