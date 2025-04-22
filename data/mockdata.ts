@@ -15,10 +15,9 @@ export const specialties = [
 // Generating random available slots for the next 7 days
 const generateAvailableSlots = (count: number): string[] => {
   const slots: string[] = [];
-  const now = new Date();
-
+  
   for (let i = 0; i < count; i++) {
-    const date = new Date(now);
+    const date = new Date();
     date.setDate(date.getDate() + Math.floor(Math.random() * 7) + 1);
     date.setHours(
       9 + Math.floor(Math.random() * 8),
