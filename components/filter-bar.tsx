@@ -7,6 +7,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectGroup,
 } from "@/components/ui/select";
 import { specialties } from "../data/mockdata";
 import { Card } from "@/components/ui/card";
@@ -33,15 +34,20 @@ export default function FilterBar({
           <Label htmlFor="specialty">Specialty</Label>
           <Select value={specialty} onValueChange={setSpecialty}>
             <SelectTrigger id="specialty" className="w-full">
-              <SelectValue placeholder="Select specialty" />
+              <SelectValue
+                defaultValue={specialty}
+                placeholder="Select specialty"
+              />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Specialties</SelectItem>
-              {specialties.map((spec) => (
-                <SelectItem key={spec} value={spec}>
-                  {spec}
-                </SelectItem>
-              ))}
+              <SelectGroup>
+                <SelectItem value="all">All Specialties</SelectItem>
+                {specialties.map((specialty) => (
+                  <SelectItem key={specialty} value={specialty}>
+                    {specialty}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
             </SelectContent>
           </Select>
         </div>
@@ -53,8 +59,10 @@ export default function FilterBar({
               <SelectValue placeholder="Select availability" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All</SelectItem>
-              <SelectItem value="available">Available Now</SelectItem>
+              <SelectGroup>
+                <SelectItem value="all">All</SelectItem>
+                <SelectItem value="available">Available Now</SelectItem>
+              </SelectGroup>
             </SelectContent>
           </Select>
         </div>

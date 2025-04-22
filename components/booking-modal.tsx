@@ -84,73 +84,69 @@ export default function BookingModal({
   };
 
   return (
-    <>
-      <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent
-          className="sm:max-w-md"
-          aria-labelledby="booking-modal-title"
-        >
-          <DialogHeader>
-            <DialogTitle id="booking-modal-title">
-              Book Appointment with Dr. {doctor.name}
-            </DialogTitle>
-          </DialogHeader>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent
+        className="sm:max-w-md"
+        aria-labelledby="booking-modal-title"
+      >
+        <DialogHeader>
+          <DialogTitle id="booking-modal-title">
+            Book Appointment with Dr. {doctor.name}
+          </DialogTitle>
+        </DialogHeader>
 
-          <div className="py-4">
-            <p className="text-sm text-gray-500 mb-4">
-              Select an available time slot for your appointment with Dr.{" "}
-              {doctor.name}, {doctor.specialty}
-            </p>
+        <div className="py-4">
+          <p className="text-sm text-gray-500 mb-4">
+            Select an available time slot for your appointment with Dr.{" "}
+            {doctor.name}, {doctor.specialty}
+          </p>
 
-            {availableSlots.length > 0 ? (
-              <RadioGroup value={selectedSlot} onValueChange={setSelectedSlot}>
-                <div className="space-y-2">
-                  {availableSlots.map((slot, index) => {
-                    const date = new Date(slot);
-                    const formattedDate = date.toLocaleString("en-US", {
-                      weekday: "long",
-                      month: "long",
-                      day: "numeric",
-                      hour: "numeric",
-                      minute: "2-digit",
-                    });
+          {availableSlots.length > 0 ? (
+            <RadioGroup value={selectedSlot} onValueChange={setSelectedSlot}>
+              <div className="space-y-2">
+                {availableSlots.map((slot, index) => {
+                  const date = new Date(slot);
+                  const formattedDate = date.toLocaleString("en-US", {
+                    weekday: "long",
+                    month: "long",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "2-digit",
+                  });
 
-                    return (
-                      <div key={index} className="flex items-center space-x-2">
-                        <RadioGroupItem
-                          value={slot}
-                          id={`slot-${index}`}
-                          aria-describedby={`slot-desc-${index}`}
-                        />
-                        <Label
-                          htmlFor={`slot-${index}`}
-                          id={`slot-desc-${index}`}
-                          className="flex-grow cursor-pointer p-2 hover:bg-green-200 hover:text-black rounded"
-                        >
-                          {formattedDate}
-                        </Label>
-                      </div>
-                    );
-                  })}
-                </div>
-              </RadioGroup>
-            ) : (
-              <p className="text-red-500">
-                No available slots for this doctor.
-              </p>
-            )}
-          </div>
+                  return (
+                    <div key={index} className="flex items-center space-x-2">
+                      <RadioGroupItem
+                        value={slot}
+                        id={`slot-${index}`}
+                        aria-describedby={`slot-desc-${index}`}
+                      />
+                      <Label
+                        htmlFor={`slot-${index}`}
+                        id={`slot-desc-${index}`}
+                        className="flex-grow cursor-pointer p-2 hover:bg-green-200 hover:text-black rounded"
+                      >
+                        {formattedDate}
+                      </Label>
+                    </div>
+                  );
+                })}
+              </div>
+            </RadioGroup>
+          ) : (
+            <p className="text-red-500">No available slots for this doctor.</p>
+          )}
+        </div>
 
-          <DialogFooter>
-            <Button variant="outline" onClick={onClose}>
-              Cancel
-            </Button>
-            <Button onClick={handleConfirm} disabled={!selectedSlot}>
-              Confirm Appointment
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </>
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button onClick={handleConfirm} disabled={!selectedSlot}>
+            Confirm Appointment
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
